@@ -66,7 +66,7 @@ INSERT INTO CustomerTransaction VALUES (28401231,678999999,'2001-02-12',40000,3)
 INSERT INTO CustomerTransaction VALUES (28111231,986777777,'2003-02-09',5000,12)
 SELECT * FROM CustomerTransaction
 
---4.Write a query to get all customers from Customer table who live in ‘Hanoi’.
+--4.Write a query to get all customers from Customer table who live in â€˜Hanoiâ€™.
 
 SELECT Name FROM Customer WHERE City ='HANOI'
 
@@ -76,7 +76,7 @@ SELECT Name FROM Customer WHERE City ='HANOI'
 SELECT Name,Phone,Email,AccountNumber,Balance FROM Customer
 JOIN CustomerAccount ON Customer.CustomerId = CustomerAccount.CustomerId
 
---6.A-Z bank has a business rule that each transaction (withdrawal or deposit) won’t be
+--6.A-Z bank has a business rule that each transaction (withdrawal or deposit) wonâ€™t be
 --over $1000000 (One million USDs). Create a CHECK constraint on Amount column
 --of CustomerTransaction table to check that each transaction amount is greater than
 --0 and less than or equal $1000000.
@@ -88,10 +88,9 @@ ADD CONSTRAINT CK_Checkwithdraw CHECK (Amount > 0 and Amount <= 1000000)
 --AccountNumber, TransactionDate, Amount, and DepositorWithdraw from Customer,
 --CustomerAccount and CustomerTransaction tables.
 
-CREATE VIEW vCustomerTransaction
-AS
-SELECT [Name],CustomerAccount.AccountNumber,TransactionDate,Amount,DepositorWithdraw FROM Customer
-JOIN CustomerAccount ON Customer.CustomerId = CustomerAccount.CustomerId
-JOIN CustomerTransaction ONCustomerTransaction.AccountNumber = CustomerAccount.AccountNumber
+CREATE VIEW v_CustomerTransactions AS
+SELECT c.Name,a.AccountNumber,t.TransationDate,t.Amount,t.DepositorWithdraw FROM Customer c
+JOIN CustomerAccount a ON c.CustomerID = a.CustomerID
+JOIN CustomerTransaction t ON t.AccountNumber = t.AccountNumber
 
-SELECT * FROM vCustomerTransaction
+SELECT * FROM v_CustomerTransactions
